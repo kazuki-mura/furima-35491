@@ -3,7 +3,7 @@
 | Column             | Type       | Options           |
 | ------------------ | ------     | -----------       |
 | nickname           | string     | null: false       | 
-| email              | references | foreign_key: true |
+| email              | string     | foreign_key: true |
 | encrypted_password | string     | null: false       |
 | last_name          | string     | null: false       |
 | first_name         | string     | null: false       |
@@ -13,7 +13,7 @@
 
 ### Association
 - has_many :items
-- has_one :pay_form
+- has_many :pay_forms
 
 
 ## items テーブル
@@ -23,15 +23,25 @@
 | info                   | text    | null: false |
 | category_id            | integer | null: false |
 | sales_status_id        | integer | null: false |
-| shipping_fee_status_id | integer | null: false |
-| prefecture_id          | integer | null: false |
-| scheduled_delivery_id  | integer | null: false |
 | price                  | integer | null: false |
-
 
 ### Association
 - belongs_to :user
+- has_one :purchase_record
 - belongs_to :pay_form
+
+
+
+## purchase_record テーブル
+| Column                 | Type    | Options     |
+| ------------------     | ------  | ----------- |
+| shipping_fee_status_id | integer | null: false |
+| prefecture_id          | integer | null: false |
+| scheduled_delivery_id  | integer | null: false |
+
+### Association
+- belongs_to :item
+
 
 
 ## pay_forms テーブル
@@ -46,7 +56,7 @@
 
 ### Association
 - belongs_to :user
-- has_many :items
+- has_many :purchase_record
 
 
 
