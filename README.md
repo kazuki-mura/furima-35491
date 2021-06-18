@@ -45,25 +45,23 @@
 ### Association
 - belongs_to :item
 - belongs_to :user
-
+- has_one :pay_form
 
 
 ## pay_forms テーブル
 | Column             | Type     | Options     |
 | ------------------ | ------   | ----------- |
-| postal_code        | integer  | null: false |
-| prefecture         | string   | null: false |
+| postal_code        | string   | null: false |
+| prefecture_id      | integer  | null: false |
 | city               | string   | null: false |
 | addresses          | string   | null: false |
-| building           | string   | null: false |
-| phone_number       | integer  | null: false |
+| building           | string   |             |
+| phone_number       | string   | null: false |
 | purchase_record_id | integer  | null: false, foreign_key: true|
 
 
 ### Association
-- belongs_to :user
-- has_many :purchase_records
-
+- belongs_to : purchase_record
 
 
 
