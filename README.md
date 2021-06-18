@@ -1,15 +1,15 @@
 
 ## users テーブル
-| Column             | Type       | Options           |
-| ------------------ | ------     | -----------       |
-| nickname           | string     | null: false       | 
-| email              | string     | foreign_key: true |
-| encrypted_password | string     | null: false       |
-| last_name          | string     | null: false       |
-| first_name         | string     | null: false       |
-| last_name_kana     | string     | null: false       |
-| first_name_kana    | string     | null: false       |
-| birth_date         | date       | null: false       |
+| Column             | Type       | Options      |
+| ------------------ | ------     | -----------  |
+| nickname           | string     | null: false  | 
+| email              | string     | unique: true |
+| encrypted_password | string     | null: false  |
+| last_name          | string     | null: false  |
+| first_name         | string     | null: false  |
+| last_name_kana     | string     | null: false  |
+| first_name_kana    | string     | null: false  |
+| birth_date         | date       | null: false  |
 
 ### Association
 - has_many :items
@@ -24,23 +24,27 @@
 | category_id            | integer | null: false |
 | sales_status_id        | integer | null: false |
 | price                  | integer | null: false |
+| shipping_fee_status_id | integer | null: false |
+| prefecture_id          | integer | null: false |
+| scheduled_delivery_id  | integer | null: false |
+| user_id                | integer | null: false |
 
 ### Association
 - belongs_to :user
 - has_one :purchase_record
-- belongs_to :pay_form
 
 
 
 ## purchase_record テーブル
 | Column                 | Type    | Options     |
 | ------------------     | ------  | ----------- |
-| shipping_fee_status_id | integer | null: false |
-| prefecture_id          | integer | null: false |
-| scheduled_delivery_id  | integer | null: false |
+| item_id                | integer | null: false |
+| pay_form_id            | integer | null: false |
+
 
 ### Association
 - belongs_to :item
+- belongs_to :pay_form
 
 
 
@@ -53,10 +57,12 @@
 | addresses          | text     | null: false |
 | building           | string   | null: false |
 | phone_number       | integer  | null: false |
+| user_id            | integer | null: false |
+
 
 ### Association
 - belongs_to :user
-- has_many :purchase_record
+- has_many :purchase_records
 
 
 
