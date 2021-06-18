@@ -53,8 +53,8 @@
 | ------------------ | ------   | ----------- |
 | postal_code        | integer  | null: false |
 | prefecture         | string   | null: false |
-| city               | text     | null: false |
-| addresses          | text     | null: false |
+| city               | string   | null: false |
+| addresses          | string   | null: false |
 | building           | string   | null: false |
 | phone_number       | integer  | null: false |
 | purchase_record_id | integer  | null: false, foreign_key: true|
