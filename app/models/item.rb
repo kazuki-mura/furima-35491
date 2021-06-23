@@ -6,8 +6,8 @@ class Item < ApplicationRecord
   belongs_to :scheduled_delivery
   belongs_to :shipping_fee_status
 
-  validates :title, :text, presence: true
-  validates :genre_id, numericality: { other_than: 1 } 
+  validates :image, :name, :info, :category_id, :sales_status_id, :shipping_fee_status_id, :prefecture_id,:scheduled_delivery_id, :price, presence: true
+  validates :category_id, :sales_status_id, :prefecture_id, :scheduled_delivery_id, :shipping_fee_status_id, numericality: { other_than: 1 } 
   
   belongs_to :user
   has_one_attached :image
