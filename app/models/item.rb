@@ -6,9 +6,21 @@ class Item < ApplicationRecord
   belongs_to :scheduled_delivery
   belongs_to :shipping_fee_status
 
-  validates :image, :name, :info, :category_id, :sales_status_id, :shipping_fee_status_id, :prefecture_id,:scheduled_delivery_id, :price, presence: true
-  validates :category_id, :sales_status_id, :prefecture_id, :scheduled_delivery_id, :shipping_fee_status_id, numericality: { other_than: 1 } 
+  with_options presence: true do
+    validates :image
+    validates :name
+    validates :info 
+    validates  :price, inclusion: { in: 300..9_999_999 }, format: { with: /\A[0-9]+\z/ }, numericality: true
   
+    with_options numericality: { other_than: 1 } do
+      validates :category_id
+      validates :sales_status_id 
+      validates :prefecture_id
+      validates :scheduled_delivery_id
+      validates :shipping_fee_status_id
+    end
+  end
+
   belongs_to :user
   has_one_attached :image
 
