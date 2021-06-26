@@ -35,13 +35,13 @@ RSpec.describe Item, type: :model do
       end
 
       it 'category_idがid:1では投稿できない' do
-        @item.category_id = '1'
+        @item.category_id =  1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
 
       it 'sales_status_idがid:1では投稿できない' do
-        @item.sales_status_id = '1'
+        @item.sales_status_id =  1
         @item.valid?
         expect(@item.errors.full_messages).to include("Sales status must be other than 1")
       end
@@ -53,43 +53,56 @@ RSpec.describe Item, type: :model do
       end
 
       it 'priceが300以下では投稿できない' do
-        @item.price = '1'
+        @item.price =  1
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not included in the list")
       end
 
       it 'priceが9999999以上では投稿できない' do
-        @item.price = '100000000'
+        @item.price = 100000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not included in the list")
       end
 
       it 'priceが全角数字では投稿できない' do
-        @item.price = '１２３４５'
+        @item.price =  '１２３４５'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not included in the list")
       end
 
-      it 'priceが数字では投稿できない' do
+
+      it 'priceが半角英数字混合では投稿できない' do
+        @item.price =  '1000yen'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+
+      it 'priceが半角英語では投稿できない' do
+        @item.price =  'aaaaa'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+
+      it 'priceが漢数字では投稿できない' do
         @item.price = '二千九百'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
 
       it 'shipping_fee_status_idがid:1では投稿できない' do
-        @item.shipping_fee_status_id = '1'
+        @item.shipping_fee_status_id =  1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping fee status must be other than 1")
       end
 
       it 'prefecture_idがid:1では投稿できない' do
-        @item.prefecture_id = '1'
+        @item.prefecture_id =  1
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
       end
 
       it 'scheduled_delivery_idがid:1では投稿できない' do
-        @item.scheduled_delivery_id = '1'
+        @item.scheduled_delivery_id =  1
         @item.valid?
         expect(@item.errors.full_messages).to include("Scheduled delivery must be other than 1")
       end
