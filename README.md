@@ -45,10 +45,10 @@
 ### Association
 - belongs_to :item
 - belongs_to :user
-- has_one :address
+- has_one :pay_form
 
 
-## addresses テーブル
+## pay_forms テーブル
 | Column             | Type     | Options     |
 | ------------------ | ------   | ----------- |
 | postal_code        | string   | null: false |
@@ -57,7 +57,7 @@
 | addresses          | string   | null: false |
 | building           | string   |             |
 | phone_number       | string   | null: false |
-| oeder_id           | integer  | null: false, foreign_key: true|
+| order_id           | integer  | null: false, foreign_key: true|
 
 
 ### Association
