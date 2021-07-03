@@ -2,28 +2,25 @@ class OrdersController < ApplicationController
   before_action :set_item, only: [:index, :create]
 
   def index
-    @order = Order.new
+    @order_pay_form = OrderPayForm.new
   end
 
   def create
-    @order = Oder.create(order_params)
-    PayForm.create(pay_form_params)
-    redirect_to root_path
+    @order_pay_form = OrderPayForm.new(order_params)
   end
 
   private
-
-  def order_params
-    params.permit(:price).merge(user_id: current_user.id)
-  end
-
 
   def set_item
     @item = Item.find(params[:item_id])
   end
 
-  def pay_form_params
-    params.permit(:postal_code, :prefecture, :city, :addresses, :building,:phone_number).merge(order_id: @order.id)
+  def order_params
+    params.require(:order_pay_form).permit(:postal_code, :prefecture_id, :city, :addresses, :building, :phone_number).merge(token: params[:token], item_id: params[:item_id], user_id: current_user.id )
   end
+
+  # def pay_form_params
+  #   params.permit(:postal_code, :prefecture_id, :city, :addresses, :building,:phone_number).merge(order_id: @order.id)
+  # end
 
 end
