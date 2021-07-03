@@ -1,7 +1,7 @@
 class OrderPayForm
   include ActiveModel::Model
 
-   attr_accessor :token, :postal_code, :prefecture_id, :city, :addresses, :building, :phone_number, :item_id, :user_id
+   attr_accessor :token, :postal_code, :prefecture, :city, :addresses, :building, :phone_number, :item_id, :user_id
 
   with_options presence: true do
     validates :token, :city, :addresses
@@ -16,7 +16,7 @@ class OrderPayForm
 
 
   def save
-    PayForm.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, addresses: addresses, building: building, phone_number: phone_number)
-    Order.create(user_id: user_id, item_id: item_id)
+    order = Order.create(user_id: user_id, item_id: item_id)
+    PayForm.create(postal_code: postal_code, prefecture_id: prefecture, city: city, addresses: addresses, building: building, phone_number: phone_number, order_id: order.id)
   end
 end
