@@ -56,6 +56,18 @@ RSpec.describe OrderPayForm, type: :model do
         expect(@order_pay_form.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
       end
 
+      it 'postal_codeの数字が大文字である' do
+        @order_pay_form.postal_code = '１２３-１２３４'
+        @order_pay_form.valid?
+        expect(@order_pay_form.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+      end
+
+      it 'postal_codeのハイフンが大文字である' do
+        @order_pay_form.postal_code = '123ー1234'
+        @order_pay_form.valid?
+        expect(@order_pay_form.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+      end
+
       it 'prefecture_idがid = 1である' do
         @order_pay_form.prefecture = 1
         @order_pay_form.valid?
@@ -82,6 +94,17 @@ RSpec.describe OrderPayForm, type: :model do
 
       it 'phone_numberの文字数が足りない' do
         @order_pay_form.phone_number = '111111111'
+        @order_pay_form.valid?
+        expect(@order_pay_form.errors.full_messages).to include( "Phone number is invalid")
+      end
+
+      it 'phone_numberの文字数が12桁である' do
+        @order_pay_form.phone_number = '123456789012'
+        @order_pay_form.valid?
+        expect(@order_pay_form.errors.full_messages).to include( "Phone number is invalid")
+      end
+      it 'phone_numberの数字が全角である' do
+        @order_pay_form.phone_number = '１２３４５６７８９０１'
         @order_pay_form.valid?
         expect(@order_pay_form.errors.full_messages).to include( "Phone number is invalid")
       end
