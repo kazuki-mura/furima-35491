@@ -4,8 +4,8 @@ class OrderPayForm
    attr_accessor :token, :postal_code, :prefecture, :city, :addresses, :building, :phone_number, :item_id, :user_id
 
   with_options presence: true do
-    validates :token, :city, :addresses
-    validates :prefecture, numericality: {other_than: 0, message: "can't be blank"}
+    validates :token, :city, :addresses, :user_id, :item_id
+    validates :prefecture, numericality: {other_than: 1}
 
     validates :phone_number, format: { with: /\A\d{11}\z/ }
     
