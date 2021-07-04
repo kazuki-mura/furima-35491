@@ -9,13 +9,21 @@ RSpec.describe OrderPayForm, type: :model do
       sleep 0.1
     end
     context '商品が購入できる場合' do
+
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@order_pay_form).to be_valid
       end
-      it '建物番号は空でも登録できること'do
-      @order_pay_form.building = ' '
+
+      it '建物は空でも登録できること'do
+        @order_pay_form.building = ' '
+        expect(@order_pay_form).to be_valid
+      end
+
+      it 'phone-numberが10桁でも登録できること'do
+      @order_pay_form.phone_number = '0123456789'
       expect(@order_pay_form).to be_valid
     end
+
   end
   
   context '商品が購入できない場合' do
@@ -87,22 +95,30 @@ RSpec.describe OrderPayForm, type: :model do
       end
 
       it 'phone_numberが空である' do
-        @order_pay_form.phone_number = ' '
+        @order_pay_form.phone_number = ''
         @order_pay_form.valid?
         expect(@order_pay_form.errors.full_messages).to include("Phone number can't be blank")
       end
 
-      it 'phone_numberの文字数が足りない' do
-        @order_pay_form.phone_number = '111111111'
+      it 'phone_numberの文字数が9桁である' do
+        @order_pay_form.phone_number = '012345678'
         @order_pay_form.valid?
         expect(@order_pay_form.errors.full_messages).to include( "Phone number is invalid")
       end
 
       it 'phone_numberの文字数が12桁である' do
-        @order_pay_form.phone_number = '123456789012'
+        @order_pay_form.phone_number = '012345678901'
         @order_pay_form.valid?
         expect(@order_pay_form.errors.full_messages).to include( "Phone number is invalid")
       end
+
+      it 'phone_numberにハイフンが入っている' do
+        @order_pay_form.phone_number = '012-3456-7890'
+        @order_pay_form.valid?
+        expect(@order_pay_form.errors.full_messages).to include( "Phone number is invalid")
+      end
+
+
       it 'phone_numberの数字が全角である' do
         @order_pay_form.phone_number = '１２３４５６７８９０１'
         @order_pay_form.valid?
